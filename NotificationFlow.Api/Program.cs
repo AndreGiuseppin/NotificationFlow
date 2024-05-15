@@ -2,11 +2,12 @@ using NotificationFlow.Api.Extensions.ApplicationService;
 using NotificationFlow.Api.Extensions.Databases;
 
 var builder = WebApplication.CreateBuilder(args);
+var configuration = builder.Configuration;
 
 builder.Services
     .AddServices()
     .AddRepositories()
-    .AddSqlServer()
+    .AddSqlServer(configuration)
     .AddSwaggerGen()
     .AddEndpointsApiExplorer()
     .AddControllers();
