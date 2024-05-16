@@ -20,7 +20,7 @@ namespace NotificationFlow.Data.DbContexts.SqlServer.Mappings
                 .IsRequired()
                 .HasColumnType("varchar(255)");
 
-            builder.Property(x => x.SendToAll)
+            builder.Property(x => x.IsGeneral)
                 .IsRequired()
                 .HasColumnType("bit")
                 .HasDefaultValue(0);
