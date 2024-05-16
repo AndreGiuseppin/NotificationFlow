@@ -24,6 +24,11 @@ namespace NotificationFlow.Business.Mappers
                         ContactType = (int)ContactTypeEnum.Phone,
                         Value = userRequest.Phone
                     }
+                },
+                NotificationPreference = new NotificationPreference
+                {
+                    ReceiveGeneralNotifications = true,
+                    ReceiveSpecificNotifications = true
                 }
             };
         }

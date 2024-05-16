@@ -12,7 +12,7 @@ namespace NotificationFlow.Data.DbContexts.SqlServer.Mappings
 
             builder.HasKey(x => x.Id);
 
-            builder.Property(x => x.Read)
+            builder.Property(x => x.IsRead)
                 .IsRequired()
                 .HasColumnType("bit")
                 .HasDefaultValue(0);

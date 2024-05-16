@@ -8,5 +8,6 @@
 
         public List<Contact> Contacts { get; set; }
         public List<NotificationUser> NotificationUsers { get; set; }
+        public NotificationPreference NotificationPreference { get; set; }
     }
 }
