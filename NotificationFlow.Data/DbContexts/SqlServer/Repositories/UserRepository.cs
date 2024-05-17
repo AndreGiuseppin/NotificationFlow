@@ -1,4 +1,5 @@
-﻿using NotificationFlow.Business.Entity;
+﻿using Microsoft.EntityFrameworkCore;
+using NotificationFlow.Business.Entity;
 using NotificationFlow.Business.Interfaces.Repositories;
 using NotificationFlow.Data.Database.SqlServer;
 
@@ -17,6 +18,16 @@ namespace NotificationFlow.Data.DbContexts.SqlServer.Repositories
         {
             await _db.Set<User>().AddAsync(user);
             await _db.SaveChangesAsync();
+        }
+
+        public async Task<User> Get(int userId)
+        {
+            var user = await _db.Set<User>()
+                .Where(x => x.Id == userId)
+                .Include(x => x.NotificationPreference)
+                .FirstOrDefaultAsync();
+
+            return user;
         }
     }
 }
