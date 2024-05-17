@@ -18,5 +18,11 @@ namespace NotificationFlow.Data.DbContexts.SqlServer.Repositories
             await _db.Set<NotificationUser>().AddAsync(notificationUser);
             await _db.SaveChangesAsync();
         }
+
+        public async Task BulkPost(List<NotificationUser> notificationUsers)
+        {
+            await _db.Set<NotificationUser>().AddRangeAsync(notificationUsers);
+            await _db.SaveChangesAsync();
+        }
     }
 }

@@ -23,13 +23,21 @@ namespace NotificationFlow.Business.Services.NotificationDecorator
         {
             var user = await _userRepository.Get(command.UserId);
 
-            if (user.NotificationPreference.ReceiveSpecificNotifications)
+            if (command.IsGeneral is false)
             {
-                var notification = await _notificationRepository.Post(NotificationMapper.NotificationCommandToNotificationGeneral(command));
-                await _notificationUsersRepository.Post(NotificationUserMapper.ToNotification(notification.Id, command.UserId));
+                if (user.NotificationPreference.ReceiveSpecificNotifications)
+                {
+                    var notification = await _notificationRepository.Post(NotificationMapper.NotificationCommandToNotificationGeneral(command));
+                    await _notificationUsersRepository.Post(NotificationUserMapper.ToNotificationUser(notification.Id, command.UserId));
 
-                return;
+                    return;
+                }
             }
+
+            var users = await _userRepository.GetUsersWithGeneralNotificationPreferencesEnabled();
+            if (users.Count == 0) return;
+
+            await _notificationUsersRepository.BulkPost(NotificationUserMapper.ToNotificationUsers(command.NotificationId, users.Select(x => x.Id).ToList()));
 
             return;
         }

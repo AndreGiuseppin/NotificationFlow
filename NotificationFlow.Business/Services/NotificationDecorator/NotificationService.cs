@@ -24,8 +24,10 @@ namespace NotificationFlow.Business.Services.NotificationDecorator
                 return;
             }
 
-            await _notificationRepository.Post(NotificationMapper.NotificationCommandToNotificationGeneral(command));
+            var notification = await _notificationRepository.Post(NotificationMapper.NotificationCommandToNotificationGeneral(command));
+            command.WithNotificationId(notification.Id);
 
+            await _next.Post(command);
             return;
         }
     }

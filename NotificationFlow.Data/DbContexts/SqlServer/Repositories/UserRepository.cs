@@ -39,5 +39,13 @@ namespace NotificationFlow.Data.DbContexts.SqlServer.Repositories
 
             await _db.SaveChangesAsync();
         }
+
+        public async Task<List<User>> GetUsersWithGeneralNotificationPreferencesEnabled()
+        {
+            var users = await _db.Set<User>().Include(x => x.NotificationPreference)
+                .Where(x => x.NotificationPreference.ReceiveGeneralNotifications == true).ToListAsync();
+
+            return users;
+        }
     }
 }
