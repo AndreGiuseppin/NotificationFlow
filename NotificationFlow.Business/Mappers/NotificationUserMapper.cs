@@ -4,7 +4,7 @@ namespace NotificationFlow.Business.Mappers
 {
     public static class NotificationUserMapper
     {
-        public static NotificationUser ToNotification(int notificationId, int userId)
+        public static NotificationUser ToNotificationUser(int notificationId, int userId)
         {
             return new NotificationUser
             {
@@ -12,6 +12,18 @@ namespace NotificationFlow.Business.Mappers
                 UserId = userId,
                 IsRead = false
             };
+        }
+
+        public static List<NotificationUser> ToNotificationUsers(int notificationId, List<int> usersId)
+        {
+            var notificationUsers = usersId.Select(x => new NotificationUser
+            {
+                NotificationId = notificationId,
+                UserId = x,
+                IsRead = false
+            }).ToList();
+
+            return notificationUsers;
         }
     }
 }

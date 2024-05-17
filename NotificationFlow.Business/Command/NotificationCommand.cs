@@ -9,5 +9,9 @@
         public bool SendPushNotification { get; set; }
         public bool SendEmailNotification { get; set; }
         public bool SendSmsNotification { get; set; }
+
+        public int NotificationId { get; private set; }
+
+        public void WithNotificationId(int notificationId) => NotificationId = notificationId;
     }
 }
