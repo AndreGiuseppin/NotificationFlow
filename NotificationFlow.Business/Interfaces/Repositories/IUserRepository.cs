@@ -6,5 +6,6 @@ namespace NotificationFlow.Business.Interfaces.Repositories
     {
         Task Post(User user);
         Task<User> Get(int userId);
+        Task PatchNotificationPreferences(int userId, bool ReceiveGeneralNotifications, bool ReceiveSpecificNotifications);
     }
 }

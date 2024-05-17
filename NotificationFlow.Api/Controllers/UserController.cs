@@ -12,7 +12,15 @@ namespace NotificationFlow.Api.Controllers
         public async Task<IActionResult> Post([FromBody] UserRequest request, [FromServices] IUserService service)
         {
             await service.Post(request);
-            return Created();
+            return Ok();
+        }
+
+        [HttpPatch]
+        [Route("notification-preferences")]
+        public async Task<IActionResult> PatchNotificationPreferences([FromBody] UserNotificationPreferencesRequest request, [FromServices] IUserService service)
+        {
+            await service.PatchNotificationPreferences(request);
+            return Ok();
         }
     }
 }

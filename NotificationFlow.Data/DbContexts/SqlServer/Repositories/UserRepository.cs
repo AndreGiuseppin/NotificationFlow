@@ -29,5 +29,15 @@ namespace NotificationFlow.Data.DbContexts.SqlServer.Repositories
 
             return user;
         }
+
+        public async Task PatchNotificationPreferences(int userId, bool ReceiveGeneralNotifications, bool ReceiveSpecificNotifications)
+        {
+            var user = await Get(userId);
+
+            user.NotificationPreference.ReceiveGeneralNotifications = ReceiveGeneralNotifications;
+            user.NotificationPreference.ReceiveSpecificNotifications = ReceiveSpecificNotifications;
+
+            await _db.SaveChangesAsync();
+        }
     }
 }
