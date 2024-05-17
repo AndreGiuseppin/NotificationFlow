@@ -2,9 +2,8 @@
 
 namespace NotificationFlow.Business.Interfaces.Repositories
 {
-    public interface IUserRepository
+    public interface INotificationRepository
     {
-        Task Post(User user);
-        Task<User> Get(int userId);
+        Task<Notification> Post(Notification notification);
     }
 }
