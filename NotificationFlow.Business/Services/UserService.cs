@@ -13,10 +13,14 @@ namespace NotificationFlow.Business.Services
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
-
         public async Task Post(UserRequest request)
         {
             await _userRepository.Post(UserMapper.UserRequestToUser(request));
+        }
+
+        public async Task PatchNotificationPreferences(UserNotificationPreferencesRequest request)
+        {
+            await _userRepository.PatchNotificationPreferences(request.UserId, request.ReceiveGeneralNotifications, request.ReceiveSpecificNotifications);
         }
     }
 }

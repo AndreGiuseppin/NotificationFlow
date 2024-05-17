@@ -5,5 +5,6 @@ namespace NotificationFlow.Business.Interfaces.Services
     public interface IUserService
     {
         Task Post(UserRequest request);
+        Task PatchNotificationPreferences(UserNotificationPreferencesRequest request);
     }
 }
