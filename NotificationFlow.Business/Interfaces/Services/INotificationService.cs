@@ -1,9 +1,9 @@
-﻿using NotificationFlow.Business.Command;
+﻿using NotificationFlow.Business.Models;
 
 namespace NotificationFlow.Business.Interfaces.Services
 {
     public interface INotificationService
     {
-        Task Post(NotificationCommand command);
+        Task Post(NotificationRequest request);
     }
 }
