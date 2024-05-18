@@ -1,5 +1,8 @@
-﻿using NotificationFlow.Business.Interfaces.Repositories;
+﻿using NotificationFlow.Api.Consumer;
+using NotificationFlow.Business.Interfaces.Producer;
+using NotificationFlow.Business.Interfaces.Repositories;
 using NotificationFlow.Business.Interfaces.Services;
+using NotificationFlow.Business.Producer;
 using NotificationFlow.Business.Services;
 using NotificationFlow.Business.Services.NotificationDecorator;
 using NotificationFlow.Data.DbContexts.SqlServer.Repositories;
@@ -10,10 +13,14 @@ namespace NotificationFlow.Api.Extensions.ApplicationService
     {
         public static IServiceCollection AddServices(this IServiceCollection services)
         {
-            services.AddScoped<IUserService, UserService>();
+            services.AddHostedService<NotificationConsumer>();
 
-            services.AddScoped<INotificationService, NotificationServiceWithUser>();
-            services.Decorate<INotificationService, NotificationService>();
+            services.AddScoped<IUserService, UserService>();
+            services.AddScoped<INotificationService, NotificationService>();
+            services.AddScoped<IKafkaProducer, KafkaProducer>();
+
+            services.AddScoped<INotificationServiceCommand, NotificationServiceWithUser>();
+            services.Decorate<INotificationServiceCommand, NotificationServiceWithNotification>();
 
             return services;
         }

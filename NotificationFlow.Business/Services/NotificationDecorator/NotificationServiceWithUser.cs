@@ -5,7 +5,7 @@ using NotificationFlow.Business.Mappers;
 
 namespace NotificationFlow.Business.Services.NotificationDecorator
 {
-    public class NotificationServiceWithUser : INotificationService
+    public class NotificationServiceWithUser : INotificationServiceCommand
     {
         private readonly IUserRepository _userRepository;
         private readonly INotificationRepository _notificationRepository;
@@ -19,7 +19,7 @@ namespace NotificationFlow.Business.Services.NotificationDecorator
             _notificationUsersRepository = notificationUsersRepository ?? throw new ArgumentNullException(nameof(notificationUsersRepository));
         }
 
-        public async Task Post(NotificationCommand command)
+        public async Task ProcessAsync(NotificationCommand command)
         {
             var user = await _userRepository.Get(command.UserId);
 
