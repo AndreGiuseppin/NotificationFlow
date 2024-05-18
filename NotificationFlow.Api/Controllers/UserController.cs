@@ -22,5 +22,13 @@ namespace NotificationFlow.Api.Controllers
             await service.PatchNotificationPreferences(request);
             return Ok();
         }
+
+        [HttpGet]
+        [Route("{Id}/notification")]
+        public async Task<IActionResult> GetUserNotifications([FromRoute] GetUserNotificationsRequest request, [FromServices] IUserService service)
+        {
+            var notifications = await service.GetUserNotifications(request);
+            return Ok(notifications);
+        }
     }
 }

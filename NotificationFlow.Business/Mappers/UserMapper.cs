@@ -32,5 +32,26 @@ namespace NotificationFlow.Business.Mappers
                 }
             };
         }
-    }
+
+        public static GetUserNotificationsResponse UserToUserNotification(User user)
+        {
+            return new GetUserNotificationsResponse
+            {
+                GeneralNotifications = user.NotificationUsers.Where(x => x.Notification.IsGeneral == true).Select(x => new UserNotification
+                {
+                    NotificationUserId = x.Id,
+                    TitleNotification = x.Notification.Title,
+                    DescriptionNotification = x.Notification.Description,
+                    IsRead = x.IsRead
+                }).ToList(),
+                SpecificNotification = user.NotificationUsers.Where(x => x.Notification.IsGeneral == false).Select(x => new UserNotification
+                {
+                    NotificationUserId = x.Id,
+                    TitleNotification = x.Notification.Title,
+                    DescriptionNotification = x.Notification.Description,
+                    IsRead = x.IsRead
+                }).ToList()
+            };
+        }
+    };
 }

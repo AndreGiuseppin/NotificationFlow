@@ -5,14 +5,9 @@ using NotificationFlow.Data.Database.SqlServer;
 
 namespace NotificationFlow.Data.DbContexts.SqlServer.Repositories
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository(ApplicationDbContext db) : IUserRepository
     {
-        private readonly ApplicationDbContext _db;
-
-        public UserRepository(ApplicationDbContext db)
-        {
-            _db = db ?? throw new ArgumentNullException(nameof(db));
-        }
+        private readonly ApplicationDbContext _db = db ?? throw new ArgumentNullException(nameof(db));
 
         public async Task Post(User user)
         {
@@ -25,6 +20,8 @@ namespace NotificationFlow.Data.DbContexts.SqlServer.Repositories
             var user = await _db.Set<User>()
                 .Where(x => x.Id == userId)
                 .Include(x => x.NotificationPreference)
+                .Include(x => x.NotificationUsers)
+                    .ThenInclude(x => x.Notification)
                 .FirstOrDefaultAsync();
 
             return user;

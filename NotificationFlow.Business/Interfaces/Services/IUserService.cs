@@ -1,4 +1,5 @@
-﻿using NotificationFlow.Business.Models;
+﻿using NotificationFlow.Business.Command;
+using NotificationFlow.Business.Models;
 
 namespace NotificationFlow.Business.Interfaces.Services
 {
@@ -6,5 +7,6 @@ namespace NotificationFlow.Business.Interfaces.Services
     {
         Task Post(UserRequest request);
         Task PatchNotificationPreferences(UserNotificationPreferencesRequest request);
+        Task<GetUserNotificationsResponse> GetUserNotifications(GetUserNotificationsCommand request);
     }
 }
