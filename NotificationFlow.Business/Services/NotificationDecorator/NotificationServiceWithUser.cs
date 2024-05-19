@@ -2,6 +2,7 @@
 using NotificationFlow.Business.Command;
 using NotificationFlow.Business.Interfaces.Repositories;
 using NotificationFlow.Business.Interfaces.Services;
+using NotificationFlow.Business.Interfaces.Strategy;
 using NotificationFlow.Business.Mappers;
 
 namespace NotificationFlow.Business.Services.NotificationDecorator
@@ -12,14 +13,15 @@ namespace NotificationFlow.Business.Services.NotificationDecorator
         private readonly INotificationRepository _notificationRepository;
         private readonly INotificationUsersRepository _notificationUsersRepository;
         private readonly ILogger _logger;
-
+        private readonly INotificationStrategyProvider _strategyProvider;
         public NotificationServiceWithUser(IUserRepository userRepository, INotificationRepository notificationRepository,
-            INotificationUsersRepository notificationUsersRepository, ILogger logger)
+            INotificationUsersRepository notificationUsersRepository, ILogger logger, INotificationStrategyProvider strategyProvider)
         {
             _userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
             _notificationRepository = notificationRepository ?? throw new ArgumentNullException(nameof(notificationRepository));
             _notificationUsersRepository = notificationUsersRepository ?? throw new ArgumentNullException(nameof(notificationUsersRepository));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+            _strategyProvider = strategyProvider ?? throw new ArgumentNullException(nameof(strategyProvider));
         }
 
         public async Task ProcessAsync(NotificationCommand command)
@@ -43,6 +45,12 @@ namespace NotificationFlow.Business.Services.NotificationDecorator
                 if (users.Count == 0) return;
 
                 await _notificationUsersRepository.BulkPost(NotificationUserMapper.ToNotificationUsers(command.NotificationId, users.Select(x => x.Id).ToList()));
+
+                command.GetNotificationTypes().ForEach(type =>
+                {
+                    _strategyProvider.Get(type)
+                    .Handle(command);
+                });
 
                 return;
             }
