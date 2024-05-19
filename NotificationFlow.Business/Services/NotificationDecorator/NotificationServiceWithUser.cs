@@ -39,6 +39,8 @@ namespace NotificationFlow.Business.Services.NotificationDecorator
 
                         return;
                     }
+
+                    return;
                 }
 
                 var users = await _userRepository.GetUsersWithGeneralNotificationPreferencesEnabled();

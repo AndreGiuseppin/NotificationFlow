@@ -1,5 +1,4 @@
-﻿using NotificationFlow.Business.Command;
-using NotificationFlow.Business.Interfaces.Repositories;
+﻿using NotificationFlow.Business.Interfaces.Repositories;
 using NotificationFlow.Business.Interfaces.Services;
 using NotificationFlow.Business.Mappers;
 using NotificationFlow.Business.Models;
@@ -13,12 +12,12 @@ namespace NotificationFlow.Business.Services
         public async Task Post(UserRequest request) =>
             await _userRepository.Post(UserMapper.UserRequestToUser(request));
 
-        public async Task PatchNotificationPreferences(UserNotificationPreferencesRequest request) =>
-            await _userRepository.PatchNotificationPreferences(request.UserId, request.ReceiveGeneralNotifications, request.ReceiveSpecificNotifications);
+        public async Task PatchNotificationPreferences(int userId, UserNotificationPreferencesRequest request) =>
+            await _userRepository.PatchNotificationPreferences(userId, request.ReceiveGeneralNotifications, request.ReceiveSpecificNotifications);
 
-        public async Task<GetUserNotificationsResponse> GetUserNotifications(GetUserNotificationsCommand request)
+        public async Task<GetUserNotificationsResponse> GetUserNotifications(int userId)
         {
-            var user = await _userRepository.Get(request.UserId);
+            var user = await _userRepository.Get(userId);
 
             if (user is null)
                 return new GetUserNotificationsResponse();

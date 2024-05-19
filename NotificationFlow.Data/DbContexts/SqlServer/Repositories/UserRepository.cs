@@ -22,6 +22,7 @@ namespace NotificationFlow.Data.DbContexts.SqlServer.Repositories
                 .Include(x => x.NotificationPreference)
                 .Include(x => x.NotificationUsers)
                     .ThenInclude(x => x.Notification)
+                .AsNoTracking()
                 .FirstOrDefaultAsync();
 
             return user;
@@ -29,7 +30,10 @@ namespace NotificationFlow.Data.DbContexts.SqlServer.Repositories
 
         public async Task PatchNotificationPreferences(int userId, bool ReceiveGeneralNotifications, bool ReceiveSpecificNotifications)
         {
-            var user = await Get(userId);
+            var user = await _db.Set<User>()
+                .Where(x => x.Id == userId)
+                .Include(x => x.NotificationPreference)
+                .FirstOrDefaultAsync();
 
             user.NotificationPreference.ReceiveGeneralNotifications = ReceiveGeneralNotifications;
             user.NotificationPreference.ReceiveSpecificNotifications = ReceiveSpecificNotifications;

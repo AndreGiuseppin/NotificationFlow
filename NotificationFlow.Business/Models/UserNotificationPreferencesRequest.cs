@@ -1,9 +1,10 @@
-﻿namespace NotificationFlow.Business.Models
+﻿using Microsoft.AspNetCore.Mvc;
+
+namespace NotificationFlow.Business.Models
 {
     public class UserNotificationPreferencesRequest
     {
-        public int UserId { get; set; }
-        public bool ReceiveGeneralNotifications { get; set; }
-        public bool ReceiveSpecificNotifications { get; set; }
+        [FromBody] public bool ReceiveGeneralNotifications { get; set; }
+        [FromBody] public bool ReceiveSpecificNotifications { get; set; }
     }
 }
