@@ -2,9 +2,11 @@
 using NotificationFlow.Business.Interfaces.Producer;
 using NotificationFlow.Business.Interfaces.Repositories;
 using NotificationFlow.Business.Interfaces.Services;
+using NotificationFlow.Business.Interfaces.Strategy;
 using NotificationFlow.Business.Producer;
 using NotificationFlow.Business.Services;
 using NotificationFlow.Business.Services.NotificationDecorator;
+using NotificationFlow.Business.Services.Strategy;
 using NotificationFlow.Data.DbContexts.SqlServer.Repositories;
 
 namespace NotificationFlow.Api.Extensions.ApplicationService
@@ -21,6 +23,11 @@ namespace NotificationFlow.Api.Extensions.ApplicationService
 
             services.AddScoped<INotificationServiceCommand, NotificationServiceWithUser>();
             services.Decorate<INotificationServiceCommand, NotificationServiceWithNotification>();
+
+            services.AddScoped<INotificationStrategyProvider, NotificationStrategyProvider>();
+            services.AddScoped<INotificationStrategy, NotificationWhenHaveEmail>();
+            services.AddScoped<INotificationStrategy, NotificationWhenHaveSms>();
+            services.AddScoped<INotificationStrategy, NotificationWhenHavePush>();
 
             return services;
         }

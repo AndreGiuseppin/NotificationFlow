@@ -1,4 +1,6 @@
-﻿namespace NotificationFlow.Business.Command
+﻿using NotificationFlow.Business.Commons;
+
+namespace NotificationFlow.Business.Command
 {
     public class NotificationCommand
     {
@@ -14,5 +16,16 @@
         public int NotificationId { get; private set; }
 
         public void WithNotificationId(int notificationId) => NotificationId = notificationId;
+
+        public List<string> GetNotificationTypes()
+        {
+            var types = new List<string>();
+
+            if (SendPushNotification) types.Add(NotificationTypes.PushNotification);
+            if (SendEmailNotification) types.Add(NotificationTypes.EmailNotification);
+            if (SendSmsNotification) types.Add(NotificationTypes.SmsNotification);
+
+            return types;
+        }
     }
 }
