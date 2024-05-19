@@ -1,5 +1,7 @@
+using Hangfire;
 using NotificationFlow.Api.Extensions.ApplicationService;
 using NotificationFlow.Api.Extensions.Databases;
+using NotificationFlow.Api.Extensions.HangFire;
 using NotificationFlow.Api.Extensions.MessageBroker;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,6 +12,7 @@ builder.Services
     .AddServices()
     .AddRepositories()
     .AddSqlServer(configuration)
+    .AddHangFire(configuration)
     .AddSwaggerGen()
     .AddEndpointsApiExplorer()
     .AddControllers();
@@ -20,7 +23,13 @@ app
     .UseSwagger()
     .UseSwaggerUI()
     .UseHttpsRedirection()
-    .UseAuthorization();
+    .UseRouting()
+    .UseAuthorization()
+    .UseHangfireDashboard()
+    .UseEndpoints(endpoints =>
+    {
+        endpoints.MapHangfireDashboard();
+    });
 
 app.MapControllers();
 app.Run();

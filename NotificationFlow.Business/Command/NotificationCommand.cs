@@ -9,6 +9,7 @@
         public bool SendPushNotification { get; set; }
         public bool SendEmailNotification { get; set; }
         public bool SendSmsNotification { get; set; }
+        public DateTime? ScheduleTime { get; set; }
 
         public int NotificationId { get; private set; }
 

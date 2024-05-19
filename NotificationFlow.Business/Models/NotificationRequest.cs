@@ -11,6 +11,7 @@ namespace NotificationFlow.Business.Models
         public bool SendPushNotification { get; set; }
         public bool SendEmailNotification { get; set; }
         public bool SendSmsNotification { get; set; }
+        public DateTime? ScheduleTime { get; set; }
 
         public static implicit operator NotificationCommand(NotificationRequest request)
         {
@@ -22,7 +23,8 @@ namespace NotificationFlow.Business.Models
                 UserId = request.UserId,
                 SendPushNotification = request.SendPushNotification,
                 SendEmailNotification = request.SendEmailNotification,
-                SendSmsNotification = request.SendSmsNotification
+                SendSmsNotification = request.SendSmsNotification,
+                ScheduleTime = request.ScheduleTime
             };
         }
     }
