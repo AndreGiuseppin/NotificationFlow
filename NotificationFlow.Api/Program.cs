@@ -11,6 +11,7 @@ builder.Services
     .AddKafka(configuration)
     .AddServices()
     .AddRepositories()
+    .AddILogger()
     .AddSqlServer(configuration)
     .AddHangFire(configuration)
     .AddSwaggerGen()

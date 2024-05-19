@@ -33,5 +33,12 @@ namespace NotificationFlow.Api.Extensions.ApplicationService
 
             return services;
         }
+
+        public static IServiceCollection AddILogger(this IServiceCollection services)
+        {
+            services.AddSingleton<ILogger>(provider => provider.GetService<ILogger<Program>>());
+
+            return services;
+        }
     }
 }
