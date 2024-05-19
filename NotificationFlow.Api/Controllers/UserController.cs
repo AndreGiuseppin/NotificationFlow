@@ -16,18 +16,19 @@ namespace NotificationFlow.Api.Controllers
         }
 
         [HttpPatch]
-        [Route("notification-preferences")]
-        public async Task<IActionResult> PatchNotificationPreferences([FromBody] UserNotificationPreferencesRequest request, [FromServices] IUserService service)
+        [Route("{id}/notification-preferences")]
+        public async Task<IActionResult> PatchNotificationPreferences([FromRoute] int id,
+            [FromBody] UserNotificationPreferencesRequest request, [FromServices] IUserService service)
         {
-            await service.PatchNotificationPreferences(request);
+            await service.PatchNotificationPreferences(id, request);
             return Ok();
         }
 
         [HttpGet]
-        [Route("{Id}/notification")]
-        public async Task<IActionResult> GetUserNotifications([FromRoute] GetUserNotificationsRequest request, [FromServices] IUserService service)
+        [Route("{id}/notification")]
+        public async Task<IActionResult> GetUserNotifications([FromRoute] int id, [FromServices] IUserService service)
         {
-            var notifications = await service.GetUserNotifications(request);
+            var notifications = await service.GetUserNotifications(id);
             return Ok(notifications);
         }
     }
