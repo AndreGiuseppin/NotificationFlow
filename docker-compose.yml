@@ -1,15 +1,6 @@
 version: '3.4'
 
 services:
-  # notificationflow.api:
-  #   image: ${DOCKER_REGISTRY-}notificationflowapi
-  #   build:
-  #     context: .
-  #     dockerfile: NotificationFlow.Api/Dockerfile
-  #   depends_on:
-  #     - kafka-ui-compose
-  #     - mssql
-  
   mssql:
     image: mcr.microsoft.com/mssql/server:2022-latest
     ports:
@@ -17,6 +8,8 @@ services:
     environment:
       ACCEPT_EULA: "Y"
       MSSQL_SA_PASSWORD: "Pass@123"
+    depends_on:
+      - kafka-ui-compose
 
   kafka-ui-compose:
     container_name: kafka-ui-compose
