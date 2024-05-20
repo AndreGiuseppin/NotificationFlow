@@ -5,11 +5,13 @@ VisualStudioVersion = 17.8.34525.116
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationFlow.Api", "NotificationFlow.Api\NotificationFlow.Api.csproj", "{FB374E4F-E094-4507-98FA-C033306E82E1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationFlow.Business", "NotificationFlow.Business\NotificationFlow.Business.csproj", "{9316112F-CF59-48AA-999B-10CBE3B06335}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationFlow.Business", "NotificationFlow.Business\NotificationFlow.Business.csproj", "{9316112F-CF59-48AA-999B-10CBE3B06335}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationFlow.Data", "NotificationFlow.Data\NotificationFlow.Data.csproj", "{2BD1C4F6-D717-4A39-81A7-CB8C34F6E2D5}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationFlow.Data", "NotificationFlow.Data\NotificationFlow.Data.csproj", "{2BD1C4F6-D717-4A39-81A7-CB8C34F6E2D5}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NotificationFlow.Test", "NotificationFlow.Test\NotificationFlow.Test.csproj", "{E8A46AF1-7E96-411A-B510-5CFEEA16491A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NotificationFlow.Test", "NotificationFlow.Test\NotificationFlow.Test.csproj", "{E8A46AF1-7E96-411A-B510-5CFEEA16491A}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{E220C1AA-AFA2-4CFE-A57C-2267FCFA3923}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{E8A46AF1-7E96-411A-B510-5CFEEA16491A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E8A46AF1-7E96-411A-B510-5CFEEA16491A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E8A46AF1-7E96-411A-B510-5CFEEA16491A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E220C1AA-AFA2-4CFE-A57C-2267FCFA3923}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E220C1AA-AFA2-4CFE-A57C-2267FCFA3923}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E220C1AA-AFA2-4CFE-A57C-2267FCFA3923}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E220C1AA-AFA2-4CFE-A57C-2267FCFA3923}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
