@@ -1,8 +1,10 @@
 using Hangfire;
+using Microsoft.EntityFrameworkCore;
 using NotificationFlow.Api.Extensions.ApplicationService;
 using NotificationFlow.Api.Extensions.Databases;
 using NotificationFlow.Api.Extensions.HangFire;
 using NotificationFlow.Api.Extensions.MessageBroker;
+using NotificationFlow.Data.Database.SqlServer;
 
 var builder = WebApplication.CreateBuilder(args);
 var configuration = builder.Configuration;
@@ -31,6 +33,12 @@ app
     {
         endpoints.MapHangfireDashboard();
     });
+
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+    db.Database.Migrate();
+};
 
 app.MapControllers();
 app.Run();
